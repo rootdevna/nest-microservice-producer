@@ -23,4 +23,15 @@ export class AppController {
     return 'Message sent to the queue!';
   }
 
+  @Post('books')
+  async postBook(@Body() message) {
+    this.rabbitMqService.postBook('rabbit-mq-producer', {
+      BookName: message.bookname, 
+      Price: message.price, 
+      Category: message.category, 
+      Author: message.author
+    })
+    return 'Message sent to the queue!';
+  }
+
 }
