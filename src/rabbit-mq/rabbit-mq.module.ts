@@ -24,7 +24,17 @@ import { RabbitMqService } from './rabbit-mq.service';
             ],
             queue: 'book-messages',
           },
-        }
+        },
+        {
+          name: 'tasks-rabbit-mq-module',
+          transport: Transport.RMQ,
+          options: {
+            urls: [
+              'amqps://avltcrcf:YL5TXofezoFyXFs5yPGPJO9h5ImeIrUJ@woodpecker.rmq.cloudamqp.com/avltcrcf',
+            ],
+            queue: 'create-task',
+          },
+        },
       ]),
     ],
     controllers: [],
