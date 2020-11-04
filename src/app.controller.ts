@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ClientProxy, ClientProxyFactory, Transport }from '@nestjs/microservices'
 import { RabbitMqService } from './rabbit-mq/rabbit-mq.service';
@@ -14,14 +14,12 @@ export class AppController {
     ) {}
 
 
-  @Get()
-  async getHello() {
-    const pendingOperations = Array.from(new Array(5)).map((_, index) =>
-      this.rabbitMqService.send('rabbit-mq-producer', {
-        message: this.appService.getHello() + index,
-      }),
-    );
-    Promise.all(pendingOperations);
+  @Post()
+  async getHello(@Body() message) {
+    this.rabbitMqService.send('rabbit-mq-producer', {
+      username: message.username,
+      password: message.password
+    })
     return 'Message sent to the queue!';
   }
 

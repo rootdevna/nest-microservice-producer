@@ -10,9 +10,9 @@ import { RabbitMqService } from './rabbit-mq.service';
           transport: Transport.RMQ,
           options: {
             urls: [
-              'amqps://zicaldzw:pTK2IWIaXxIFwTubNoGxMWPeqe0UIOUI@toad.rmq.cloudamqp.com/zicaldzw',
+              'amqps://avltcrcf:YL5TXofezoFyXFs5yPGPJO9h5ImeIrUJ@woodpecker.rmq.cloudamqp.com/avltcrcf',
             ],
-            queue: 'rabbit-mq-nest-js',
+            queue: 'user-messages',
           },
         },
       ]),
