@@ -6,6 +6,16 @@ import { RabbitMqService } from './rabbit-mq.service';
     imports: [
       ClientsModule.register([
         {
+          name: '.orange.',
+          transport: Transport.RMQ,
+          options: {
+            urls: [
+              'amqps://avltcrcf:YL5TXofezoFyXFs5yPGPJO9h5ImeIrUJ@woodpecker.rmq.cloudamqp.com/avltcrcf',
+            ],
+            queue: 'user-messages',
+          },
+        },
+        {
           name: 'rabbit-mq-module',
           transport: Transport.RMQ,
           options: {
@@ -35,7 +45,7 @@ import { RabbitMqService } from './rabbit-mq.service';
             queue: 'create-task',
           },
         },
-      ]),
+      ])
     ],
     controllers: [],
     providers: [RabbitMqService, RabbitMqService],

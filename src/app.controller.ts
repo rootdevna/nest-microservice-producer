@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ClientProxy, ClientProxyFactory, Transport }from '@nestjs/microservices'
 import { RabbitMqService } from './rabbit-mq/rabbit-mq.service';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
+
 
 @Controller('api/v1')
 export class AppController {
@@ -10,11 +12,11 @@ export class AppController {
 
   constructor(
     private readonly appService: AppService,
-    private readonly rabbitMqService: RabbitMqService 
+    private readonly amqpConnection: AmqpConnection
     ) {}
 
 
-  @Post()
+ /* @Post()
   async getHello(@Body() message) {
     this.rabbitMqService.send('rabbit-mq-producer', {
       username: message.username,
@@ -23,7 +25,25 @@ export class AppController {
     return 'Message sent to the queue!';
   }
 
-  @Post('tasks')
+  @Get('test')
+  async getTest() {
+    this.rabbitMqService.send('rabbit-mq-producer', {
+      message: "sdfsalddkldksa"
+    })
+    return 'Message test sent to the queue!';
+  }
+*/
+  @Post('topic')
+  async getTopic(@Body() message) {
+      this.amqpConnection.publish(
+      'encaminhamento',
+       message.route,
+       message.title);
+
+    return 'Chamado Encamihado';
+  }
+
+/*  @Post('tasks')
   async createTask(@Body() message){
     this.rabbitMqService.sendTask('rabbit-mq-producer',{
       description: message.description,
@@ -42,5 +62,5 @@ export class AppController {
     })
     return 'Message sent to the queue!';
   }
-
+*/
 }
